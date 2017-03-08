@@ -1,17 +1,18 @@
 # db_upgrade
-A python script that upgrades a MySQL DB by running scripts against it
+A python script that upgrades a **MySQL DB** by running scripts against it.
 
-This script assumes that you have a MySQL DB running on the localhost. For simplicity’s sake I have created a **test DB** without a password. You will obviously have to change this for Production use cases.
+This script assumes that you have a **MySQL DB** running on the **localhost**. For simplicity’s sake I have created a **test DB** without a password. You will obviously have to change this for Production use cases.
 
-This script looks for numbered files ending in .sql within the “scripts” directory. The naming convention it assumes is of a ‘number’ followed by a name, for example: `003createtemptable.sql`.
+This script looks for numbered files ending in `.sql` within the **’scripts’** directory. The naming convention it assumes is of a **‘number’** followed by a name, for example: `003createtemptable.sql`.
 
-It reads the current version from the `version` table in the DB and if any of the scripts have a higher version number, it executes the SQL in those scripts against your database.
+It reads the current version from the `version` table in the DB and if any of the scripts have a **higher** version number, it executes the SQL in those scripts, **in numbered order**, against your database.
 
-After it finishes doing the upgrades, it updates the version table with the new version number. This is to prevent the same updates from being run twice. 
+After it finishes doing the upgrades, it updates the `version` table with the new version number. This is to prevent the same updates from being run twice. 
 
 Here’s some output from an example run:
 
-`kj@myvm:~/python$ ./do_upgrade.py
+```
+kj@myvm:~/python$ ./do_upgrade.py
 Max version: 045
 Current version: 002
 Upgrades to be applied:
@@ -31,4 +32,5 @@ UPDATE temp SET name = 'John' WHERE name = 'Khusro'
 
 Applying upgrade 045.createusertable.sql:
 CREATE TABLE user (id int not null auto_increment, username varchar(10) not null, primary key (id))
-Updating DB Version to: 045`
+Updating DB Version to: 045
+```
